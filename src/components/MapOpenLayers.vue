@@ -1,6 +1,5 @@
 <template>
-    <div id = "map">
-    </div>
+    <div id="map" style="width: 100%; height: 550px;" ></div>
 </template>
  
 <script>
@@ -18,8 +17,8 @@ export default {
                 })
             ],
             view: new View({
-                center: [0, 0],
-                zoom: 2
+                center: [11771900, 1128430],
+                zoom: 16
             })
         })
     }
