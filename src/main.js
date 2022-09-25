@@ -1,4 +1,14 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap";
 
-createApp(App).mount('#app')
+import App from './App.vue';
+import { createApp } from 'vue';
+
+import BaseButton from './components/ui/BaseButton.vue';
+
+
+const app = createApp(App);
+
+app.component('base-button', BaseButton);
+
+app.mount('#app')
