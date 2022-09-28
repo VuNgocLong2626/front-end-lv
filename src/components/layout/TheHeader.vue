@@ -1,97 +1,26 @@
 <template>
   <div class="header">
     <div class="top_header">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
+      <b-container>
+        <b-row>
+          <b-col-md-12>
             <div class="select_main">
               <div class="sign">
-                <base-button>ahihih</base-button>
+                <base-button>Đăng nhập</base-button>
               </div>
               <ul class="top_infomation">
                 <li>
                   <img src="../../images/ti_call.png" alt="#" />Call : +1234567890
                 </li>
                 <li>
-                  <img src="../../images/ti_mail.png" alt="#" /><a
-                    href="Javascript:void(0)"
-                  >
-                    demo@gmail.com</a
-                  >
+                  <img src="../../images/ti_mail.png" alt="#" />
+                  <a>demo@gmail.com</a>
                 </li>
               </ul>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="header_midil">
-    <div class="container">
-      <div class="row d_flex">
-        <div class="col-md-2 col-sm-3 logo_section">
-          <div class="full">
-            <div class="center-desk">
-              <div class="logo">
-                <a href="index.html"
-                  ><img src="../../images/logo.png" alt="#"
-                /></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-9 col-md-8">
-          <nav class="navigation navbar navbar-expand-md navbar-dark">
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarsExample04"
-              aria-controls="navbarsExample04"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarsExample04">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="about.html">About</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="pakages.html">Pakages </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="client.html">client </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="blog.html">Blog</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="contact.html">Contact Us</a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-        <div class="col-md-2 d_none">
-          <ul class="email text_align_right">
-            <li>
-              <a href="Javascript:void(0)"
-                ><i class="fa fa-user" aria-hidden="true"></i
-              ></a>
-            </li>
-            <li>
-              <a href="Javascript:void(0)"
-                ><i class="fa fa-search" aria-hidden="true"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
+          </b-col-md-12>
+        </b-row>
+      </b-container>
     </div>
   </div>
 </template>
@@ -102,5 +31,10 @@
 .read_more:hover {
     background: #fff;
     color: #73bd24;
+}
+
+.edit-button {
+  border: var(--bs-btn-border-width) solid #fff;
+  color: #fff
 }
 </style>
