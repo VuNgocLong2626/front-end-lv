@@ -1,0 +1,14 @@
+<template>
+    <!-- <the-header></the-header> -->
+    co
+</template>
+
+<script>
+// import TheHeader from '../../components/layout/TheHeader.vue';
+
+export default {
+    // components: {
+    //     TheHeader
+    // }
+}
+</script>
