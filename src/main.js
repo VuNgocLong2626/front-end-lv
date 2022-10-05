@@ -8,6 +8,7 @@ import "bootstrap";
 import App from './App.vue';
 import { createApp } from 'vue';
 import router from "./router.js";
+import * as VeeValidate from 'vee-validate';
 
 import BaseButton from './components/ui/BaseButton.vue';
 
@@ -16,6 +17,7 @@ const app = createApp(App);
 
 app.use(BootstrapVue3);
 app.use(router);
+app.use(VeeValidate);
 
 app.component('base-button', BaseButton);
 

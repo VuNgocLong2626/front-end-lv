@@ -7,8 +7,10 @@
 </template>
 
 <script>
+
 import TheHeader from './components/layout/TheHeader.vue';
 import TheHeaderControl from './components/layout/TheHeaderControl.vue';
+
 export default {
   components: {
     TheHeader,

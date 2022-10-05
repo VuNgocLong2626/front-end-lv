@@ -6,7 +6,12 @@
           <b-col-md-12>
             <div class="select_main">
               <div class="sign">
-                <base-button>Đăng nhập</base-button>
+                <base-button class="me-1" v-b-modal="'my-modal'">Đăng nhập</base-button>
+                <base-button class="me-1" v-b-modal="'my-modal'">Đăng ký hộ kinh doanh</base-button>
+                 <b-modal id="my-modal" size="lg" hide-backdrop content-class="shadow" title="BootstrapVue">
+                  <sign-in></sign-in>
+                  
+                 </b-modal>
               </div>
               <ul class="top_infomation">
                 <li>
@@ -25,7 +30,16 @@
   </div>
 </template>
 
+<script>
 
+import SignIn from '../form/SignIn.vue'
+
+export default {
+  components: {
+    SignIn
+  }
+}
+</script>
 
 <style scoped>
 .read_more:hover {
