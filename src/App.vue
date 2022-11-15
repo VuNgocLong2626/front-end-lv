@@ -1,24 +1,25 @@
 <template>
-  <the-header></the-header>
-  <the-header-control></the-header-control>
-  <router-view>
-    
-  </router-view>
+  <main-header></main-header>
+  <div v-show="!isPermission">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-
-import TheHeader from './components/layout/TheHeader.vue';
-import TheHeaderControl from './components/layout/TheHeaderControl.vue';
+import MainHeader from "./pages/Location/MainHeader.vue";
 
 export default {
   components: {
-    TheHeader,
-    TheHeaderControl
-  }
-}
+    MainHeader,
+  },
+  computed: {
+    isPermission() {
+      return !!this.$store.getters["info/permission"];
+    },
+  },
+};
 </script>
 
 <style>
-    @import './css/style.css';
+@import "./css/style.css";
 </style>

@@ -1,14 +1,16 @@
 <template>
-    <!-- <the-header></the-header> -->
-    co
+    <h1>Trang Chính</h1>
 </template>
 
 <script>
-// import TheHeader from '../../components/layout/TheHeader.vue';
-
 export default {
-    // components: {
-    //     TheHeader
-    // }
-}
+  computed: {
+    isPermission() {
+      return !!this.$store.getters["info/permission"];
+    },
+  },
+  methods: {
+
+  },
+};
 </script>
