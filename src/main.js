@@ -10,6 +10,8 @@ import { createApp } from 'vue';
 import router from "./router.js";
 import store from './store/index.js';
 import * as VeeValidate from 'vee-validate';
+import OpenLayersMap from 'vue3-openlayers'
+import 'vue3-openlayers/dist/vue3-openlayers.css'
 
 import BaseButton from './components/ui/BaseButton.vue';
 
@@ -19,6 +21,7 @@ const app = createApp(App);
 app.use(BootstrapVue3);
 app.use(router);
 app.use(store);
+app.use(OpenLayersMap)
 app.use(VeeValidate);
 
 app.component('base-button', BaseButton);

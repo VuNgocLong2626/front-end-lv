@@ -30,31 +30,31 @@
               <ul class="navbar-nav mr-auto">
                 <!-- <b-button-group> -->
                 <li class="nav-item">
-                  <base-button class="nav-link" link to="/home"
-                    >Home</base-button
+                  <base-button class="nav-link btn__with_100" link to="/home"
+                    >Trang chủ</base-button
                   >
                 </li>
                 <li class="nav-item">
-                  <base-button class="nav-link" link to="/about"
-                    >About</base-button
+                  <base-button class="nav-link btn__with_100" link to="/about"
+                    >Giới thiệu</base-button
                   >
                 </li>
                 <li class="nav-item">
-                  <base-button class="nav-link" link to="/Pakages"
-                    >Pakages</base-button
+                  <base-button class="nav-link btn__with_100" link to="/Pakages"
+                    >Địa điểm</base-button
                   >
                 </li>
                 <li class="nav-item">
-                  <base-button class="nav-link" link to="/client"
-                    >client</base-button
+                  <base-button class="nav-link btn__with_110" link to="/client"
+                    >Khách hàng</base-button
                   >
                 </li>
                 <!-- <li class="nav-item">
-                    <base-button class="nav-link" link to="/about">About</base-button>
+                    <base-button class="nav-link btn__with_100" link to="/about">About</base-button>
                 </li> -->
                 <li class="nav-item">
-                  <base-button class="nav-link" link to="/contact"
-                    >Contact Us</base-button
+                  <base-button class="nav-link btn__with_100" link to="/contact"
+                    >đánh giá</base-button
                   >
                 </li>
                 <!-- </b-button-group> -->
@@ -62,7 +62,7 @@
             </div>
           </nav>
         </div>
-        <div class="col-md-3 d_none">
+        <!-- <div class="col-md-3 d_none">
           <b-nav-form>
             <b-form-input
               size="sm"
@@ -73,7 +73,7 @@
               >Tìm Kiếm</base-button 
             >
           </b-nav-form>
-        </div>
+        </div> -->
       </b-row>
     </b-container>
   </div>
@@ -98,3 +98,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.btn__with_100 {
+  width: 100px;
+}
+.btn__with_110 {
+  width: 110px;
+}
+</style>

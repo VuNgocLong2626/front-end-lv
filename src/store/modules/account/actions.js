@@ -13,8 +13,8 @@ export default {
     await axios
       .post(url, payload, { headers })
       .then(function (response) {
-          let responseData = response.data;
-          console.log(responseData)
+        let responseData = response.data;
+        console.log(responseData);
 
         // localStorage.setItem("AccessToken", responseData.AccessToken);
         // localStorage.setItem("tokenExpiration", responseData.Expire);
@@ -91,6 +91,45 @@ export default {
       return true;
     }
     return false;
-    },
-  
+  },
+  async loginAdmin(context, payload) {
+    let url = "/account/login-admin-not-form";
+    let headers = { "Content-Type": "application/json" };
+
+    await axios
+      .post(url, payload, { headers })
+      .then(function (response) {
+        let responseData = response.data;
+
+        localStorage.setItem("AccessToken", responseData.AccessToken);
+        localStorage.setItem("tokenExpiration", responseData.Expire);
+        localStorage.setItem("gmail", responseData.gmail);
+
+        context.commit("setUser", {
+          AccessToken: responseData.AccessToken,
+          gmail: responseData.gmail,
+          tokenExpiration: responseData.Expire,
+        });
+      })
+      .catch(function (response) {
+        console.log(response.response);
+      });
+  },
+  async getsAllPermission() {
+    await axios
+      .get("/permission/get-all-permission")
+      .then(function (response) {
+        let responseData = response.data;
+
+        response = [];
+        for ( const data of responseData) {
+          response.push(JSON.stringify({
+            value: data.Permission.toString(), text: data.Permission.toString() 
+          })) 
+        }
+        console.log(response)
+        return response
+      })
+      .catch((error) => console.log(error));
+  },
 };
