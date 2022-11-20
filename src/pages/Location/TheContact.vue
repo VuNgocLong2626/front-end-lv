@@ -8,7 +8,7 @@
           </div>
         </div>
         <div class="col-md-8 offset-md-2">
-          <form id="request" class="main_form">
+          <b-form @submit="onSubmit" class="main_form">
             <div class="row">
               <div class="col-md-12">
                 <input
@@ -49,10 +49,10 @@
                 </textarea>
               </div>
               <div class="col-md-12">
-                <button class="send_btnt">Send</button>
+                <button @click="onSubmit" class="send_btnt">Send</button>
               </div>
             </div>
-          </form>
+          </b-form>
         </div>
       </div>
     </div>
@@ -67,30 +67,37 @@ export default {
         fullName: null,
         email: null,
         number: null,
-        message: null
-      }
-    }
+        message: null,
+      },
+    };
   },
   methods: {
-    onSubmit() {
-      if(!this.form.fullName) {
-          alert('Chưa nhập Tên');
-          return;
+    onSubmit(event) {
+      event.preventDefault();
+      if (!this.form.fullName) {
+        alert("Chưa nhập Tên");
+        return;
       }
-      if(!this.form.email) {
-          alert('Chưa nhập Email');
-          return;
+      if (!this.form.email) {
+        alert("Chưa nhập Email");
+        return;
       }
-            if(!this.form.number) {
-          alert('Chưa nhập Số điện thoại');
-          return;
+      if (!this.form.number) {
+        alert("Chưa nhập Số điện thoại");
+        return;
       }
-            if(!this.form.message) {
-          alert('Chưa nhập Bình luận');
-          return;
+      if (!this.form.message) {
+        alert("Chưa nhập Bình luận");
+        return;
       }
+      this.$store.dispatch("feedback/createFeedback", {
+        Message: this.form.message,
+        Gamil: this.form.email,
+        Fullname: this.form.fullName,
+        Number: this.form.number,
+      });
       console.log(this.form);
-    }
-  }
-}
+    },
+  },
+};
 </script>

@@ -9,6 +9,7 @@ import ManageComment from "./pages/Admin/ManageComment.vue";
 import LoginAdmin from "./pages/Manage/LoginAdmin.vue";
 import CreateAccount from "./pages/Manage/CreateAccount.vue";
 import MainManage from "./pages/Manage/MainManage.vue";
+import ManageFeedback from "./pages/Manage/ManageFeedback.vue";
 
 import NotFound from "./pages/NotFound.vue";
 // import store from "@/store";
@@ -33,9 +34,9 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: "/", redirect: "/home" },
-      { name: "home", path: "/home", component: TheHeader },
-      { name: "about", path: "/about", component: TheAbout },
-      { name: "contact", path: "/contact", component: TheContact },
+    { name: "home", path: "/home", component: TheHeader },
+    { name: "about", path: "/about", component: TheAbout },
+    { name: "contact", path: "/contact", component: TheContact },
     { name: "allcontact", path: "/client", component: TheAllContact },
     {
       name: "manage-location",
@@ -61,16 +62,25 @@ const router = createRouter({
       name: "mainManage",
       path: "/admin/home",
       component: MainManage,
-    //   beforeEnter: (to, from, next) => {
-    //     // let token = localStorage.getItem("AccessToken");
-    //     store.commit("info/resetInfo");
-    //     console.log(store.getters["info/permission"]);
-    //     getInfo();
-    //     // if (!(store.getters["info/permission"] === "Admin")) next("/not-found");
-    //     next();
-    //   },
-      },
-    { name: "createAccount", path: "/admin/create-account", component: CreateAccount },
+      //   beforeEnter: (to, from, next) => {
+      //     // let token = localStorage.getItem("AccessToken");
+      //     store.commit("info/resetInfo");
+      //     console.log(store.getters["info/permission"]);
+      //     getInfo();
+      //     // if (!(store.getters["info/permission"] === "Admin")) next("/not-found");
+      //     next();
+      //   },
+    },
+    {
+      name: "manageFeedback",
+      path: "/admin/manage-comments",
+      component: ManageFeedback,
+    },
+    {
+      name: "createAccount",
+      path: "/admin/create-account",
+      component: CreateAccount,
+    },
     { name: "notFound", path: "/:notFound(.*)", component: NotFound },
     { name: "test", path: "/test", component: NotFound },
   ],
