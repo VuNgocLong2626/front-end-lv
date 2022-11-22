@@ -71,11 +71,24 @@
       </b-form-group>
 
       <div>
-        <b-form-select v-model="form.permission" :options="options"></b-form-select>
+        <b-form-select
+          v-model="form.permission"
+          :options="options"
+        ></b-form-select>
         <div class="mt-3">
           Selected: <strong>{{ form.permission }}</strong>
         </div>
       </div>
+<!-- 
+      <b-form-group label="Quyền tài khoản">
+        <b-form-input
+          type="text"
+          v-model="form.permission"
+          placeholder="Nhập Quyền Admin Hoặc Businesses"
+          required
+        ></b-form-input>
+      </b-form-group> -->
+
 
       <b-button
         class="mt-3"
@@ -109,17 +122,25 @@ export default {
       },
       selected: null,
       options: [],
+      PermissionAcount: 'Businesses'
     };
   },
   methods: {
     onSubmit(event) {
       event.preventDefault();
+      if(this.form.permission === "Admin") {
+        this.PermissionAcount = "Admin";
+      }
       if (!this.form.email) {
         alert("Chưa có email");
         return;
       }
       if (!this.form.password) {
         alert("Chưa có Password");
+        return;
+      }
+      if(!(this.form.password === this.form.confirmPassword)) {
+        alert("Mật khẩu chưa giống");
         return;
       }
       const formData = new FormData();
@@ -129,8 +150,18 @@ export default {
       formData.append("FullName", this.form.fullName);
       formData.append("Password", this.form.password);
       formData.append("Gmail", this.form.email);
-      //   this.$store.dispatch('account/signup', formData);
-      console.log(this.form);
+      formData.append("Permission", this.form.permission);
+      this.$store.dispatch("account/signupAdmin", formData);
+      this.form = {
+        email: "",
+        password: "",
+        confirmPassword: "",
+        cmnd: null,
+        file: null,
+        number: "",
+        fullName: "",
+        permission: null,
+      }
     },
     uploadFile() {
       this.form.file = this.$refs.file.files[0];
@@ -145,13 +176,13 @@ export default {
       });
     },
   },
-  mounted () {
-    console.log('ádasd')
+  mounted() {
+    console.log("ádasd");
     axios
-      .get('/permission/get-all-permission')
-      .then(response => (this.options = response.data))
+      .get("/permission/get-all-permission")
+      .then((response) => (this.options = response.data))
       .catch((error) => console.log(error));
-  }
+  },
 };
 </script>
 

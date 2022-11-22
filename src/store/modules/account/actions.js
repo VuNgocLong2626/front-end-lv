@@ -122,14 +122,33 @@ export default {
         let responseData = response.data;
 
         response = [];
-        for ( const data of responseData) {
-          response.push(JSON.stringify({
-            value: data.Permission.toString(), text: data.Permission.toString() 
-          })) 
+        for (const data of responseData) {
+          response.push(
+            JSON.stringify({
+              value: data.Permission.toString(),
+              text: data.Permission.toString(),
+            })
+          );
         }
-        console.log(response)
-        return response
+        console.log(response);
+        return response;
       })
       .catch((error) => console.log(error));
+  },
+  async signupAdmin(context, payload) {
+    let url = "/account/register-admin";
+    // let headers = { "Content-Type": "multipart/form-data" };
+    await axios
+      .post(url, payload, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(function () {
+        alert("Tạo tài Khoản Công");
+      })
+      .catch(function (response) {
+        console.log(response.response);
+      });
   },
 };

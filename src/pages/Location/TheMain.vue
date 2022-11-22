@@ -5,7 +5,6 @@
   <div v-else>
     <list-location></list-location>
   </div>
-  <button @click="isTokenExpired">Ahihi</button>
 </template>
 
 <script>

@@ -30,8 +30,8 @@
         <ol-interaction-draw
           v-if="drawEnable"
           :type="drawType"
-          @drawend="drawend"
-          @drawstart="drawstart"
+          @drawend="drawstart"
+          @drawstart="draTest"
         >
         </ol-interaction-draw>
       </ol-source-vector>
@@ -45,10 +45,12 @@
       </ol-style>
     </ol-vector-layer>
 
+    <!-- Điểm trên bản đò -->
+
     <!-- <ol-vector-layer>
         <ol-source-vector>
             <ol-feature>
-                <ol-geom-multi-point :coordinates="[[105.748565, 10.085029],[116.545264,40.451649],[116.545865,40.451698],[116.546144,40.451551],[116.546337,40.451274],[116.546788,40.451143],[116.547324,40.451078],[116.547539,40.450996],[116.547839,40.450719],[116.548440,40.450506],[116.548933,40.450604],[116.549448,40.450604],[116.550242,40.450376],[116.550865,40.450163],[116.551702,40.449935],[116.552581,40.449576]]"></ol-geom-multi-point>
+                <ol-geom-multi-point :coordinates="[test]"></ol-geom-multi-point>
                 <ol-style>
                     <ol-style-circle :radius="radius">
                         <ol-style-fill :color="fillColor"></ol-style-fill>
@@ -59,37 +61,51 @@
         </ol-source-vector>
     </ol-vector-layer> -->
 
-    <ol-webglpoints-layer :style="webglPointsStyle">
+
+
+    <!-- <ol-webglpoints-layer :style="webglPointsStyle">
       <ol-source-webglpoints />
-    </ol-webglpoints-layer>
+    </ol-webglpoints-layer> -->
 
     <ol-vector-layer>
       <ol-source-vector>
         <ol-feature>
           <ol-geom-multi-line-string
             :coordinates="[
-              [
-                [105.748565, 10.085029],
-                [105.748565, 10.08591],
-              ],
+test
             ]"
           ></ol-geom-multi-line-string>
           <ol-style>
             <ol-style-stroke
               :color="strokeColor"
               :width="strokeWidth"
-            ></ol-style-stroke>
+            > </ol-style-stroke>
           </ol-style>
         </ol-feature>
       </ol-source-vector>
     </ol-vector-layer>
   </ol-map>
+  <div>
+    asadsa {{test}}
+  </div>
 </template>
 
  
 <script>
 import { ref } from "vue";
 export default {
+  data() {
+    return {
+      test: []
+    }
+  },
+  methods: {
+    draTest(event) {
+      console.log(event.target.sketchCoords_);
+      this.test.push(event.target.sketchCoords_);
+      // return event.target.sketchCoords_;
+    },
+  },
   setup() {
     const center = ref([105.748565, 10.085029]);
     const projection = ref("EPSG:4326");
@@ -108,8 +124,10 @@ export default {
     };
 
     const drawend = (event) => {
-      console.log(event);
+      // console.log(event);
+      return event.target.sketchCoords_;
     };
+
 
     const webglPointsStyle = {
       symbol: {
@@ -151,7 +169,7 @@ export default {
       radius,
       strokeWidth,
       strokeColor,
-      fillColor,
+      fillColor
     };
   },
 };

@@ -3,7 +3,7 @@
   <div v-show="!isPermission">
     <router-view></router-view>
   </div>
-  <the-footer v-if="!isUrl"></the-footer>
+  <the-footer v-if="!isBussiness"></the-footer>
 </template>
 
 <script>
@@ -29,6 +29,9 @@ export default {
     },
     isShow() {
       return this.isUrl && this.isLoginAdmin;
+    },
+      isBussiness() {
+      return !!this.$store.getters["info/permission"];
     }
   },
 };

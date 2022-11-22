@@ -4,12 +4,16 @@ import TheHeader from "./pages/Location/TheMain.vue";
 import TheAbout from "./pages/Location/TheAbout.vue";
 import TheContact from "./pages/Location/TheContact.vue";
 import TheAllContact from "./pages/Location/TheAllContact.vue";
-import RegisterBussiness from "./pages/Admin/RegisterBussiness.vue";
+// import RegisterBussiness from "./pages/Admin/RegisterBussiness.vue";
 import ManageComment from "./pages/Admin/ManageComment.vue";
+import ManageAddress from "./pages/Admin/ManageAddress.vue";
+
 import LoginAdmin from "./pages/Manage/LoginAdmin.vue";
 import CreateAccount from "./pages/Manage/CreateAccount.vue";
 import MainManage from "./pages/Manage/MainManage.vue";
 import ManageFeedback from "./pages/Manage/ManageFeedback.vue";
+import RegisterAddress from "./pages/Manage/RegisterAddress.vue";
+import ManageAccount from "./pages/Manage/ManageAccount.vue";
 
 import NotFound from "./pages/NotFound.vue";
 // import store from "@/store";
@@ -41,7 +45,7 @@ const router = createRouter({
     {
       name: "manage-location",
       path: "/manage-location",
-      component: RegisterBussiness,
+      component: ManageAddress,
       beforeEnter: (to, from, next) => {
         if (!token) next("/not-found");
         else next();
@@ -57,6 +61,16 @@ const router = createRouter({
         else next();
       },
     },
+    // {
+    //   name: "manage-address",
+    //   path: "/manage-location",
+    //   component: ManageAddress,
+    //   beforeEnter: (to, from, next) => {
+    //     let token = localStorage.getItem("AccessToken");
+    //     if (!token) next("/not-found");
+    //     else next();
+    //   },
+    // },
     { name: "loginAdmin", path: "/admin/login", component: LoginAdmin },
     {
       name: "mainManage",
@@ -73,13 +87,23 @@ const router = createRouter({
     },
     {
       name: "manageFeedback",
-      path: "/admin/manage-comments",
+      path: "/admin/manage-feedback",
       component: ManageFeedback,
     },
     {
       name: "createAccount",
       path: "/admin/create-account",
       component: CreateAccount,
+    },
+    {
+      name: "createAddress",
+      path: "/admin/create-address",
+      component: RegisterAddress,
+    },
+    {
+      name: "manageAccount",
+      path: "/admin/manage-account",
+      component: ManageAccount,
     },
     { name: "notFound", path: "/:notFound(.*)", component: NotFound },
     { name: "test", path: "/test", component: NotFound },

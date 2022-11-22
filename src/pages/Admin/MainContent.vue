@@ -20,6 +20,15 @@
           >Tạo Tài khoản</base-button
         >
         <base-button
+          v-if="isPermission"
+          size="lg"
+          :class="{ active: isAction === 'TaoDuongDi' }"
+          block
+          variant="dark"
+          @click="getCreateAddress"
+          >Tạo Đường đi</base-button
+        >
+        <base-button
           size="lg"
           :class="{ active: isAction === 'DiaDiem' }"
           block
@@ -28,12 +37,21 @@
           >Quản lý địa điểm</base-button
         >
         <base-button
+          v-if="isPermission"
           size="lg"
           :class="{ active: isAction === 'BinhLuan' }"
           block
           variant="dark"
           @click="getComment"
           >Quản lý Bình Luận</base-button
+        >
+        <base-button
+          size="lg"
+          :class="{ active: isAction === 'DanhGia' }"
+          block
+          variant="dark"
+          @click="getFeedback"
+          >Quản lý Đánh giá</base-button
         >
         <base-button
           v-if="isPermission"
@@ -83,11 +101,19 @@ export default {
     },
     getAccount() {
       this.isAction = "TaiKhoan";
-      this.$router.push("manage-comments");
+      this.$router.push("manage-account");
     },
     getCreateAccount() {
       this.isAction = "TaoTaiKhoan";
       this.$router.push("create-account");
+    },
+      getCreateAddress() {
+      this.isAction = "TaoDuongDi";
+      this.$router.push("create-address");
+    },
+    getFeedback() {
+      this.isAction = "DanhGia";
+      this.$router.push("manage-feedback");
     },
   },
 };
