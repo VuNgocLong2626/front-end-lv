@@ -93,7 +93,7 @@ export default {
     },
     getLocatin() {
       this.isAction = "DiaDiem";
-      this.$router.push("manage-location");
+      this.$router.push("manage-point");
     },
     getComment() {
       this.isAction = "BinhLuan";

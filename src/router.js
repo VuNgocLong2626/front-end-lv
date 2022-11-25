@@ -4,9 +4,14 @@ import TheHeader from "./pages/Location/TheMain.vue";
 import TheAbout from "./pages/Location/TheAbout.vue";
 import TheContact from "./pages/Location/TheContact.vue";
 import TheAllContact from "./pages/Location/TheAllContact.vue";
+import DetailItem from "./pages/Location/DetailItem.vue";
+import ListItem from "./pages/Location/ListItem.vue";
+
+
 // import RegisterBussiness from "./pages/Admin/RegisterBussiness.vue";
 import ManageComment from "./pages/Admin/ManageComment.vue";
 import ManageAddress from "./pages/Admin/ManageAddress.vue";
+import ManagePointLocation from "./pages/Admin/ManagePoint.vue";
 
 import LoginAdmin from "./pages/Manage/LoginAdmin.vue";
 import CreateAccount from "./pages/Manage/CreateAccount.vue";
@@ -14,6 +19,7 @@ import MainManage from "./pages/Manage/MainManage.vue";
 import ManageFeedback from "./pages/Manage/ManageFeedback.vue";
 import RegisterAddress from "./pages/Manage/RegisterAddress.vue";
 import ManageAccount from "./pages/Manage/ManageAccount.vue";
+
 
 import NotFound from "./pages/NotFound.vue";
 // import store from "@/store";
@@ -42,6 +48,8 @@ const router = createRouter({
     { name: "about", path: "/about", component: TheAbout },
     { name: "contact", path: "/contact", component: TheContact },
     { name: "allcontact", path: "/client", component: TheAllContact },
+    { name: "pakages", path: "/Pakages", component: ListItem },
+    { name: "DetailItem", path: "/detail-item/:id", component: DetailItem },
     {
       name: "manage-location",
       path: "/manage-location",
@@ -60,6 +68,11 @@ const router = createRouter({
         if (!token) next("/not-found");
         else next();
       },
+    },
+        {
+      name: "managePoint",
+      path: "/manage-Point",
+      component: ManagePointLocation,
     },
     // {
     //   name: "manage-address",

@@ -1,11 +1,10 @@
 <template>
-  <map-location></map-location>
   <div class="packages">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
           <div class="titlepage text_align_center">
-            <h2>Các địa điểm du lịch</h2>
+            <h2>Tất cả địa điểm du lịch</h2>
           </div>
         </div>
       </div>
@@ -34,23 +33,16 @@
             </div>
           </div>
         </div>
-        <div class="col-md-12">
-          <a class="read_more" @click="showAll">Hiển thị thêm</a>
-        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import MapLocation from "./MapLocation.vue";
 import axios from "../../axios";
 
 
 export default {
-  components: {
-    MapLocation,
-  },
   data() {
     return {
       listItem: []
@@ -83,7 +75,7 @@ export default {
   },
   mounted() {
     axios
-      .get("/location/get-main-info-location")
+      .get("/location/get-main-info-location-all")
       .then((response) => (this.listItem = response.data))
       .catch((error) => console.log(error));
   },

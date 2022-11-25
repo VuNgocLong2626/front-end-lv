@@ -15,7 +15,24 @@
     <ol-tile-layer>
       <ol-source-osm />
     </ol-tile-layer>
-    
+
+    <ol-vector-layer>
+      <ol-source-vector>
+        <ol-feature>
+          <ol-geom-multi-point :coordinates="listPoint"></ol-geom-multi-point>
+          <ol-style>
+            <ol-style-circle :radius="radius">
+              <ol-style-fill :color="fillColor"></ol-style-fill>
+              <ol-style-stroke
+                :color="strokeColor"
+                :width="strokeWidth"
+              ></ol-style-stroke>
+            </ol-style-circle>
+          </ol-style>
+        </ol-feature>
+      </ol-source-vector>
+    </ol-vector-layer>
+
     <ol-vector-layer>
       <ol-source-vector>
         <ol-feature>
@@ -25,7 +42,7 @@
           <ol-style>
             <ol-style-stroke
               :color="strokeColorAddress"
-              :width="4"
+              :width="5"
             ></ol-style-stroke>
           </ol-style>
         </ol-feature>
@@ -52,14 +69,18 @@ export default {
       listAllAddress: [],
       ponitFocus: [],
       tess: null,
+      listPoint: [],
     };
   },
-  methods: {
-  },
+  methods: {},
   mounted() {
     axios
       .get("/space-admin/get-all-space_admin")
       .then((response) => (this.lisAddress = response.data))
+      .catch((error) => console.log(error));
+    axios
+      .get("/location/get-all-location-point")
+      .then((response) => (this.listPoint = response.data))
       .catch((error) => console.log(error));
   },
   setup() {
@@ -68,8 +89,9 @@ export default {
     const zoom = ref(16);
     const rotation = ref(0);
     const radius = ref(10);
-    const strokeWidth = ref(8);
-    const strokeColorAddress = ref("#000000");
+    const strokeWidth = ref(4);
+    const strokeColorAddress = ref("#FF9999");
+    // strokeColor
 
     const fillColor = ref("white");
 

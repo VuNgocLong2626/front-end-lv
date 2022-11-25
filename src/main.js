@@ -12,6 +12,7 @@ import store from './store/index.js';
 import * as VeeValidate from 'vee-validate';
 import OpenLayersMap from 'vue3-openlayers'
 import 'vue3-openlayers/dist/vue3-openlayers.css'
+import vue3StarRatings from "vue3-star-ratings";
 
 import BaseButton from './components/ui/BaseButton.vue';
 
@@ -23,6 +24,8 @@ app.use(router);
 app.use(store);
 app.use(OpenLayersMap)
 app.use(VeeValidate);
+app.component("vue3-star-ratings", vue3StarRatings);
+
 
 app.component('base-button', BaseButton);
 
