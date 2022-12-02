@@ -8,15 +8,36 @@
           </div>
         </div>
       </div>
+      <div class="input-group d-flex justify-content-end" style="margin: 15px 0">
+        <div class="form-outline">
+          <input
+            style="width: 300px"
+            type="search"
+            id="form1"
+            class="form-control"
+            placeholder="Nhập tên địa điểm cần tìm"
+            v-model="search"
+          />
+        </div>
+      </div>
       <div class="row">
-        <div v-for="item in listItem" :key="item.IdLocation" class="col-md-6">
+        <div
+          v-for="item in filteredList"
+          :key="item.IdLocation"
+          class="col-md-6"
+        >
           <div id="ho_img" class="packages_box" data-aos="fade-right">
-            <figure><img class="render__image" :src="item.Path" alt="#" /></figure>
+            <figure>
+              <img class="render__image" :src="item.Path" alt="#" />
+            </figure>
             <div class="tuscany">
               <div class="tusc text_align_left">
                 <div class="italy">
                   <h2>{{ item.NameLocation }}</h2>
-                  <span><img src="../../images/loca.png" alt="#" />Thời gian hoạt động: {{item.TimeStar}}</span>
+                  <span
+                    ><img src="../../images/loca.png" alt="#" />Thời gian hoạt
+                    động: {{ item.TimeStar }}</span
+                  >
                 </div>
                 <div class="italy_right">
                   <!-- <h3>Giá</h3>
@@ -24,11 +45,15 @@
                 </div>
               </div>
               <p class="test">
-                {{item.InfoLocation}}
+                {{ item.InfoLocation }}
               </p>
               <div class="tusc">
-                <a class="read_more" @click="showDetail(item.IdLocation)">Xem chi tiết</a>
-                <a class="read_more" @click="addLocation(item.IdLocation)">Vào lịch trình</a>
+                <a class="read_more" @click="showDetail(item.IdLocation)"
+                  >Xem chi tiết</a
+                >
+                <a class="read_more" @click="addLocation(item.IdLocation)"
+                  >Vào lịch trình</a
+                >
               </div>
             </div>
           </div>
@@ -41,37 +66,44 @@
 <script>
 import axios from "../../axios";
 
-
 export default {
   data() {
     return {
-      listItem: []
+      listItem: [],
+      search: "",
     };
   },
   computed: {
     isPermission() {
       return !!this.$store.getters["info/permission"];
     },
+    filteredList() {
+      return this.listItem.filter((post) => {
+        return post.NameLocation.toLowerCase().includes(
+          this.search.toLowerCase()
+        );
+      });
+    },
   },
   methods: {
     showDetail(value) {
-      this.$router.push('/detail-item/'+value)
+      this.$router.push("/detail-item/" + value);
     },
     showAll() {
-      this.$router.push('/Pakages')
+      this.$router.push("/Pakages");
     },
     addLocation(value) {
-        const users = JSON.parse(localStorage.getItem("users") || "[]");
-        const check = users.find(element => element == value)
-        console.log(check)
-        if(!check){
-            users.push(value);
-            localStorage.setItem('users', JSON.stringify(users));
-            alert('Đã được thêm');
-            return;
-        }
-        alert('Đã có trong lịch trình');
-    }
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      const check = users.find((element) => element == value);
+      console.log(check);
+      if (!check) {
+        users.push(value);
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("Đã được thêm");
+        return;
+      }
+      alert("Đã có trong lịch trình");
+    },
   },
   mounted() {
     axios
@@ -93,8 +125,8 @@ export default {
   -webkit-line-clamp: 5;
   line-height: 1.6rem;
 }
-.render__image{
-    height: 450px;
-    object-fit: cover;
+.render__image {
+  height: 450px;
+  object-fit: cover;
 }
 </style>

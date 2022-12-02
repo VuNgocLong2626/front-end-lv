@@ -6,6 +6,8 @@ import TheContact from "./pages/Location/TheContact.vue";
 import TheAllContact from "./pages/Location/TheAllContact.vue";
 import DetailItem from "./pages/Location/DetailItem.vue";
 import ListItem from "./pages/Location/ListItem.vue";
+import ScheduleAll from "./pages/Location/ScheduleAll.vue";
+
 
 
 // import RegisterBussiness from "./pages/Admin/RegisterBussiness.vue";
@@ -49,6 +51,7 @@ const router = createRouter({
     { name: "contact", path: "/contact", component: TheContact },
     { name: "allcontact", path: "/client", component: TheAllContact },
     { name: "pakages", path: "/Pakages", component: ListItem },
+    { name: "schedule", path: "/schedule", component: ScheduleAll },
     { name: "DetailItem", path: "/detail-item/:id", component: DetailItem },
     {
       name: "manage-location",

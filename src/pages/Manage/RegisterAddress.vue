@@ -51,7 +51,7 @@
         </ol-feature>
       </ol-source-vector>
     </ol-vector-layer>
-    
+
     <ol-vector-layer>
       <ol-source-vector>
         <ol-feature>
@@ -121,21 +121,24 @@
       <tr v-for="item in listAllAddress" :key="item.SpaceName">
         <th>{{ item.SpaceName }}</th>
         <td>
-          <b-button @click="showAddress(item.Point, 0)"
+          <b-button @click="showAddress(item.Point, item.IdSpace, 0)"
             >Thêm điểm Phải trên</b-button
           >
           <b-button
             class="mg__left__25px"
-            @click="showAddress(item.Point, item.Point.length - 1)"
+            @click="
+              showAddress(item.Point, item.IdSpace, item.Point.length - 1)
+            "
             >Thêm điểm Trái dưới</b-button
           >
         </td>
       </tr>
     </tbody>
   </table>
-  {{ lisAddress }}
+  <!-- {{ idAddressFocus }}
   ----
-  {{ test }}
+  <br />
+  {{ IdSpace }} -->
 </template>
 
 
@@ -155,7 +158,9 @@ export default {
       lisAddress: [],
       listAllAddress: [],
       ponitFocus: [],
+      idAddressFocus: null,
       tess: null,
+      IdSpace: null,
     };
   },
   methods: {
@@ -174,24 +179,45 @@ export default {
         alert("Chưa tạo thành đường");
         return;
       }
-      await axios
+      this.IdSpace = await axios
         .post("/space-admin/create-space_admin", {
           Point: this.test,
           Type: this.form.type,
           SpaceName: this.form.Address,
         })
-        .then(function () {
-          alert("Tạo đường thành công");
+        .then(function (resopnse) {
+          console.log(resopnse.data);
+          return resopnse.data;
         })
         .catch((error) => console.log(error));
-      this.lisAddress.push([105.74592604160547, 10.086917275146485]);
-      (this.test = []), (this.form.Address = null);
+
+      await axios
+        .post("/neighbour/create-neighbour", {
+          IdSpace: this.IdSpace,
+        })
+        .then(function (resopnse) {
+          console.log(resopnse.data);
+        })
+        .catch((error) => console.log(error));
+
+      await axios
+        .put("/neighbour/update-list-address", {
+          IdSpaceCurrent: this.IdSpace,
+          IdSpaceNeighbour: this.idAddressFocus
+        })
+        .then(function (resopnse) {
+          console.log(resopnse.data);
+        })
+        .catch((error) => console.log(error));
+
+      alert("Tạo Đường thành công");
 
       // this.lisAddress.push([105.7456256341958, 10.085393780426026])
       // this.$forceUpdate();
       // this.tess = 1
     },
-    showAddress(value, op) {
+    showAddress(value, value1, op) {
+      this.idAddressFocus = value1;
       if (this.ponitFocus) this.test.pop();
       this.ponitFocus = value;
       this.test.push(value[op]);

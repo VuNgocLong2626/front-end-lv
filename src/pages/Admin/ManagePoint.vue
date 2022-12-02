@@ -267,7 +267,6 @@
       </div>
     </b-form>
   </div>
-  {{ allInfo }}
 </template>
 
  
@@ -384,7 +383,6 @@ export default {
           },
         })
         .then(function (response) {
-          //   alert("Tạo tài Khoản Công");
           return response.data;
         })
         .catch(function (response) {

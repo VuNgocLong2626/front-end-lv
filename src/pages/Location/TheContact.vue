@@ -49,7 +49,7 @@
                 </textarea>
               </div>
               <div class="col-md-12">
-                <button @click="onSubmit" class="send_btnt">Send</button>
+                <button @click="onSubmit" class="send_btnt">Gửi</button>
               </div>
             </div>
           </b-form>
@@ -96,7 +96,8 @@ export default {
         Fullname: this.form.fullName,
         Number: this.form.number,
       });
-      console.log(this.form);
+      this.$router.push('/home')
+      // console.log(this.form);
     },
   },
 };

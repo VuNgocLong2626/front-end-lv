@@ -143,6 +143,10 @@ export default {
         alert("Mật khẩu chưa giống");
         return;
       }
+      if (!/@gmail\.com$/.test(this.form.email)) {
+        alert('Nhập sai trường email');
+        return;
+      }
       const formData = new FormData();
       formData.append("Path", this.form.file);
       formData.append("Number", this.form.number);

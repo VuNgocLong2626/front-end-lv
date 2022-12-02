@@ -3,7 +3,7 @@
   <div v-show="!isPermission">
     <router-view></router-view>
   </div>
-  <the-footer v-if="!isBussiness"></the-footer>
+  <the-footer v-if="!isBussiness && !isUrl"></the-footer>
 </template>
 
 <script>

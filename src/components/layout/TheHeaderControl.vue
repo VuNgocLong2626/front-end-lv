@@ -57,6 +57,11 @@
                     >đánh giá</base-button
                   >
                 </li>
+                <li class="nav-item">
+                  <base-button class="nav-link btn__with_100" link to="/schedule"
+                    >Lịch trình</base-button
+                  >
+                </li>
                 <!-- </b-button-group> -->
               </ul>
             </div>

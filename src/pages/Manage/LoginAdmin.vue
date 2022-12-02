@@ -52,7 +52,7 @@
                 style="padding-left: 2.5rem; padding-right: 2.5rem"
                 @click="onSubmit"
               >
-                Login
+                Đăng nhập
               </button>
             </div>
           </b-form>
