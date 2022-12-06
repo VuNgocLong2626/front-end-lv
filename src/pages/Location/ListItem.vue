@@ -8,7 +8,10 @@
           </div>
         </div>
       </div>
-      <div class="input-group d-flex justify-content-end" style="margin: 15px 0">
+      <div
+        class="input-group d-flex justify-content-end"
+        style="margin: 15px 0"
+      >
         <div class="form-outline">
           <input
             style="width: 300px"
@@ -22,7 +25,7 @@
       </div>
       <div class="row">
         <div
-          v-for="item in filteredList"
+          v-for="item in visibleCompanies"
           :key="item.IdLocation"
           class="col-md-6"
         >
@@ -58,9 +61,14 @@
             </div>
           </div>
         </div>
+        <div class="select_main">
+          <b-button @click="packItem">&lt;</b-button>
+          <b-button v-if="!isShowNext" @click="nextItem">&gt;</b-button>
+        </div>
       </div>
     </div>
   </div>
+  {{star}}
 </template>
 
 <script>
@@ -71,6 +79,9 @@ export default {
     return {
       listItem: [],
       search: "",
+      star: 0,
+      end: 4,
+      step: 4,
     };
   },
   computed: {
@@ -84,8 +95,26 @@ export default {
         );
       });
     },
+    visibleCompanies() {
+      return this.filteredList.slice(
+        this.star,
+        this.filteredList.length > 4 ? this.end : this.filteredList.length
+      );
+    },
+    isShowNext(){
+      return this.star + 4 > this.filteredList.length
+    },
   },
   methods: {
+    nextItem() {
+      this.star = this.star + 4 > this.filteredList.length ? this.filteredList.length : this.star + 4;
+      this.end =
+        this.end + 4 > this.filteredList.length ? this.filteredList.length : this.end + 4;
+    },
+    packItem() {
+      this.star = this.star - 4;
+      this.end = this.end - 4 < 4 ? 4 : this.end - 4;
+    },
     showDetail(value) {
       this.$router.push("/detail-item/" + value);
     },

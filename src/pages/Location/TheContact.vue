@@ -90,6 +90,10 @@ export default {
         alert("Chưa nhập Bình luận");
         return;
       }
+      if (!/@gmail\.com$/.test(this.form.email)) {
+        alert('Nhập sai trường email');
+        return;
+      }
       this.$store.dispatch("feedback/createFeedback", {
         Message: this.form.message,
         Gamil: this.form.email,

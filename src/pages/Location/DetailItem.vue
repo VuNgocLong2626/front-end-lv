@@ -142,7 +142,7 @@
     <div class="row">
       <div class="col-8" style="height: 100%">
           <div
-            v-for="item in listComment"
+            v-for="item in visibleCompanies"
             :key="item.IdComment"
             class="comment mt-4 text-justify float-left"
           >
@@ -165,6 +165,7 @@
               {{ item.Comment }}
             </p>
           </div>
+
       </div>
       <div class="col-4" style="height: 100%">
         <form id="request" class="main_form">
@@ -205,6 +206,10 @@
           </div>
         </form>
       </div>
+                <div class="select_main col-8">
+                      <b-button @click="packItem">&lt;</b-button>
+                      <b-button @click="nextItem">&gt;</b-button>
+          </div>
     </div>
   </div>
 </template>
@@ -228,7 +233,6 @@ export default {
     return {
       ItemLocation: {},
       test: [],
-      star: 2,
       form: {
         number: null,
         fullName: null,
@@ -236,13 +240,22 @@ export default {
         comment: null,
       },
       listComment: [],
-      lisAddress: []
+      lisAddress: [],
+      star: 0,
+      end: 3,
+      step: 3,
     };
   },
   computed: {
     address() {
         return this.ItemLocation.PointAddress
-    }
+    },
+    visibleCompanies() {
+      return this.listComment.slice(
+        this.star,
+        this.listComment.length > 3 ? this.end : this.listComment.length
+      );
+    },
   },
   mounted() {
     axios
@@ -296,7 +309,16 @@ export default {
             return;
         }
         alert('Đã có trong lịch trình');
-    }
+    }, 
+    nextItem() {
+      this.star = this.star + 3 >this.listComment.length ? this.listComment.length : this.star + 3;
+      this.end =
+        this.end + 3 > this.listComment.length ? this.listComment.length : this.end + 3;
+    },
+    packItem() {
+      this.star = this.star - 3;
+      this.end = this.end - 3 < 3    ? 3 : this.end - 3;
+    },
   },
   setup() {
     const center = ref([105.748565, 10.085029]);

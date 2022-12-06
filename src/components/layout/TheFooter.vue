@@ -5,26 +5,26 @@
                <div class="row">
                   <div class="col-md-12 ">
                      <div class="letter text_align_left">
-                        <h2>Contact Us</h2>
+                        <h2>Liên hệ với chúng tôi</h2>
                      </div>
                   </div>
                   <div class="col-md-5">
                      <form id="request" class="main_form">
                         <div class="row">
                            <div class="col-md-12 ">
-                              <input class="cont_in" placeholder="Full Name" type="type" name=" Name"> 
+                              <input class="cont_in" placeholder="Họ và tên" type="type" name=" Name"> 
                            </div>
                            <div class="col-md-12">
-                              <input class="cont_in" placeholder="Your Email" type="type" name="Email"> 
+                              <input class="cont_in" placeholder="Địa chỉ email liên hệ" type="type" name="Email"> 
                            </div>
                            <div class="col-md-12">
-                              <input class="cont_in" placeholder="Phone Number" type="type" name="Phone Number">                          
+                              <input class="cont_in" placeholder="Số điện thoại liên hệ" type="type" name="Phone Number">                          
                            </div>
                            <div class="col-md-12">
-                              <input class="cont_in" placeholder="Your Words" type="type" name="Words"> 
+                              <input class="cont_in" placeholder="Nội dung" type="type" name="Words"> 
                            </div>
                            <div class="col-md-12">
-                              <button class="send_btnt">Send</button>
+                              <button class="send_btnt">Gửi</button>
                            </div>
                         </div>
                      </form>
@@ -55,7 +55,7 @@
                <div class="container">
                   <div class="row">
                      <div class="col-md-12">
-                        <p>© 2022 Vũ Ngọc Long <a href="https://html.design/">-- Mã Nguồn --</a></p>
+                        <p>© 2022 Vũ Ngọc Long <a href="https://github.com/VuNgocLong2626?tab=repositories">-- Mã Nguồn --</a></p>
                      </div>
                   </div>
                </div>

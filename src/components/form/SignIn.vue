@@ -68,6 +68,7 @@ export default {
         Gmail: this.form.email
       });
       this.modalShow = false;
+      this.$router.push('/home')
     },
     onReset(event) {
       event.preventDefault();

@@ -37,7 +37,7 @@
           >Quản lý địa điểm</base-button
         >
         <base-button
-          v-if="isPermission"
+          v-if="isPermissionBus"
           size="lg"
           :class="{ active: isAction === 'BinhLuan' }"
           block
@@ -46,6 +46,7 @@
           >Quản lý Bình Luận</base-button
         >
         <base-button
+        v-if="isPermission"
           size="lg"
           :class="{ active: isAction === 'DanhGia' }"
           block
@@ -84,6 +85,9 @@ export default {
   computed: {
     isPermission() {
       return this.$store.getters["info/permission"] === "Admin";
+    },
+    isPermissionBus() {
+      return this.$store.getters["info/permission"] === "Businesses";
     },
   },
   methods: {

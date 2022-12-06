@@ -8,7 +8,7 @@
               <div class="sign">
                 <div class="d-flex" v-if="!isAuthenticated">
                   <sign-in></sign-in>
-                  <sign-up></sign-up>
+                  <sign-up v-if="false"></sign-up>
                 </div>
                 <div v-else>
                   <b-avatar :src="path" size="3rem"></b-avatar>

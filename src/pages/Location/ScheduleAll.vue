@@ -69,18 +69,25 @@
             ></b-form-select>
           </div>
           <div v-if="current">
-                {{current}}
+            {{ current }}
           </div>
-          <div class="col-md-12" style="margin-top:20px">
+          <div class="col-md-12" style="margin-top: 20px">
             <b-button variant="success" @click="tipAddressPoint()"
               >Gợi ý đi đường</b-button
             >
-            <b-button variant="danger" @click="reset()" style="margin-left: 25px">Hủy</b-button>
+            <b-button
+              variant="danger"
+              @click="reset()"
+              style="margin-left: 25px"
+              >Hủy</b-button
+            >
           </div>
         </div>
         <div v-else>
           <div class="col-md-12">
-            <b-button variant="success" @click="hintPonitPoint()">Tìm đường đi tếp theo</b-button>
+            <b-button variant="success" @click="hintPonitPoint()"
+              >Tìm đường đi tếp theo</b-button
+            >
           </div>
         </div>
       </div>
@@ -167,6 +174,25 @@
             </ol-feature>
           </ol-source-vector>
         </ol-vector-layer>
+
+        <ol-vector-layer>
+          <ol-source-vector>
+            <ol-feature>
+              <ol-geom-multi-point
+                :coordinates="[isPonitFirst]"
+              ></ol-geom-multi-point>
+              <ol-style>
+                <ol-style-circle :radius="radius">
+                  <ol-style-fill :color="fillColor"></ol-style-fill>
+                  <ol-style-stroke
+                    :color="strokeColor"
+                    :width="strokeWidth"
+                  ></ol-style-stroke>
+                </ol-style-circle>
+              </ol-style>
+            </ol-feature>
+          </ol-source-vector>
+        </ol-vector-layer>
       </ol-map>
     </div>
   </div>
@@ -179,7 +205,7 @@
       </div>
     </div>
   </div>
-  {{content}}
+  {{focusAddress}}
 </template>
 
 
@@ -198,8 +224,8 @@ export default {
       options: [],
       focusAddress: [],
       showBtn: true,
-      current: '',
-      content: ''
+      current: "",
+      content: "",
     };
   },
   methods: {
@@ -251,17 +277,21 @@ export default {
       this.address = false;
     },
     async hintPonitPoint() {
-      this.focusAddress = []
+      if(this.focusAddress == []) {
+        alert("Chưa chọn con đường đang đứng")
+        return;
+      }
+      this.focusAddress = [];
       const users = JSON.parse(localStorage.getItem("users") || "[]");
       const starPoint = users.shift();
       this.items.shift();
       const endPoint = users[0];
       // this.items.shift();
       localStorage.setItem("users", JSON.stringify(users));
-      if(users.length == 0) {
-        alert('Lịch dẫ hết')
-        this.$router.push('/Pakages')
-        return
+      if (users.length == 0) {
+        alert("Lịch dẫ hết");
+        this.$router.push("/Pakages");
+        return;
       }
 
       const listAddress = await axios
@@ -278,11 +308,16 @@ export default {
       this.address = false;
     },
     async tipAddressPoint() {
+      console.log((this.focusAddress))
+      if(!this.focusAddress[0]) {
+        alert("Chưa chọn con đường đang đứng")
+        return;
+      }
       const users = JSON.parse(localStorage.getItem("users") || "[]");
-      if(users.length == 0) {
-        alert('Lịch dẫ hết')
-        this.$router.push('/Pakages')
-        return
+      if (users.length == 0) {
+        alert("Lịch dẫ hết");
+        this.$router.push("/Pakages");
+        return;
       }
       const endPoint = users.shift();
       this.items.shift();
@@ -305,10 +340,10 @@ export default {
       this.current = data.Address;
       this.content = data.Script;
     },
-    reset(){
+    reset() {
       this.focusAddress = [];
-      this.searchListAddress = []
-    }
+      this.searchListAddress = [];
+    },
   },
   mounted() {
     axios
@@ -353,6 +388,9 @@ export default {
     },
     isLichTrinh() {
       return JSON.parse(localStorage.getItem("users" || "[]")).length != 0;
+    },
+    isPonitFirst() {
+      return this.items[0] ? this.items[0].PointSpace : null;
     },
   },
   setup() {

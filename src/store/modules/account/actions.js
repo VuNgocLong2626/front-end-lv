@@ -54,7 +54,9 @@ export default {
         });
       })
       .catch(function (response) {
+        alert('Đăng nhập thất bại')
         console.log(response.response);
+        return;
       });
   },
   tryLogin(context) {

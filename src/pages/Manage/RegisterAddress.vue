@@ -161,6 +161,7 @@ export default {
       idAddressFocus: null,
       tess: null,
       IdSpace: null,
+      isFocusAddress: false,
     };
   },
   methods: {
@@ -173,6 +174,10 @@ export default {
       event.preventDefault();
       if (!this.form.Address) {
         alert("Chưa nhập tên đường");
+        return;
+      }
+      if (!this.isFocusAddress) {
+        alert("Chưa chọn đường để nối")
         return;
       }
       if (this.test.length < 2) {
@@ -219,6 +224,7 @@ export default {
     showAddress(value, value1, op) {
       this.idAddressFocus = value1;
       if (this.ponitFocus) this.test.pop();
+      this.isFocusAddress = true;
       this.ponitFocus = value;
       this.test.push(value[op]);
       console.log(value);
