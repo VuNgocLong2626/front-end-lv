@@ -20,7 +20,8 @@ import CreateAccount from "./pages/Manage/CreateAccount.vue";
 import MainManage from "./pages/Manage/MainManage.vue";
 import ManageFeedback from "./pages/Manage/ManageFeedback.vue";
 import RegisterAddress from "./pages/Manage/RegisterAddress.vue";
-import ManageAccount from "./pages/Manage/ManageAccount.vue";
+import ManageAccount from "./pages/Manage/ManageAccount.vue"; 
+import ManageContact from "./pages/Manage/ManageContact.vue";
 
 
 import NotFound from "./pages/NotFound.vue";
@@ -76,6 +77,11 @@ const router = createRouter({
       name: "managePoint",
       path: "/manage-Point",
       component: ManagePointLocation,
+    },
+    {
+      name: "manageContact",
+      path: "/admin/manage-contact",
+      component: ManageContact,
     },
     // {
     //   name: "manage-address",

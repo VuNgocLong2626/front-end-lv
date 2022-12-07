@@ -114,7 +114,10 @@ export default {
         });
       })
       .catch(function (response) {
+        alert('Đăng nhập không thành công');
         console.log(response.response);
+        this.$router.push('/home')
+        return;
       });
   },
   async getsAllPermission() {

@@ -12,19 +12,19 @@
                      <form id="request" class="main_form">
                         <div class="row">
                            <div class="col-md-12 ">
-                              <input class="cont_in" placeholder="Họ và tên" type="type" name=" Name"> 
+                              <input class="cont_in" placeholder="Họ và tên" type="type" name=" Name" v-model="form.fullname"> 
                            </div>
                            <div class="col-md-12">
-                              <input class="cont_in" placeholder="Địa chỉ email liên hệ" type="type" name="Email"> 
+                              <input class="cont_in" placeholder="Địa chỉ email liên hệ" type="type" name="Email" v-model="form.email"> 
                            </div>
                            <div class="col-md-12">
-                              <input class="cont_in" placeholder="Số điện thoại liên hệ" type="type" name="Phone Number">                          
+                              <input class="cont_in" placeholder="Số điện thoại liên hệ" type="type" name="Phone Number"  v-model="form.number">                          
                            </div>
                            <div class="col-md-12">
-                              <input class="cont_in" placeholder="Nội dung" type="type" name="Words"> 
+                              <input class="cont_in" placeholder="Nội dung" type="type" name="Words"  v-model="form.content"> 
                            </div>
                            <div class="col-md-12">
-                              <button class="send_btnt">Gửi</button>
+                              <button @click="onSubmit" class="send_btnt">Gửi</button>
                            </div>
                         </div>
                      </form>
@@ -63,3 +63,49 @@
          </div>
       </footer>
 </template>
+
+<script>
+import axios from '../../axios'
+
+export default {
+   data() {
+      return {
+         form: {
+            fullname: "",
+            email: "",
+            number: "",
+            content: ""
+         }
+      }
+   },
+   methods: {
+      async onSubmit(event){
+         event.preventDefault();
+         if(!this.form.fullname) {
+            alert('Họ và tên chưa điền')
+            return;
+         }
+         if(!this.form.email) {
+            alert('Email chưa điền')
+            return;
+         }
+         if(!this.form.number) {
+            alert('Số điện thoại chưa điền')
+            return;
+         }
+         if(!this.form.content) {
+            alert('nội dung chưa điền')
+            return;
+         }
+         await axios.post('/contact/create-contact',{
+            Content: this.form.content,
+            Number: this.form.number,
+            Gmail: this.form.email,
+            FullName: this.form.fullname
+         })
+         .then(() => (alert('Liên hệ thành công')))
+         .catch((error) => console.log(error))
+      }
+   },
+}
+</script>

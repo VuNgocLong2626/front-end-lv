@@ -19,5 +19,8 @@ export default {
         state.cmnd = payload.cmnd,
         state.fullName = payload.fullName,
         state.number = payload.number
+    },
+    setPath(state, payload) {
+        state.path = payload.path
     }
 };

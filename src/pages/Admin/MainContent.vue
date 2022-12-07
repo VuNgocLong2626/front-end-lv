@@ -29,12 +29,13 @@
           >Tạo Đường đi</base-button
         >
         <base-button
+          v-if="isPermission"
           size="lg"
-          :class="{ active: isAction === 'DiaDiem' }"
+          :class="{ active: isAction === 'LienHe' }"
           block
           variant="dark"
-          @click="getLocatin"
-          >Quản lý địa điểm</base-button
+          @click="getContact"
+          >Quản lý Liên hệ</base-button
         >
         <base-button
           v-if="isPermissionBus"
@@ -53,6 +54,15 @@
           variant="dark"
           @click="getFeedback"
           >Quản lý Đánh giá</base-button
+        >
+        <base-button
+          v-if="isPermissionBus"
+          size="lg"
+          :class="{ active: isAction === 'DiaDiem' }"
+          block
+          variant="dark"
+          @click="getLocatin"
+          >Quản lý địa điểm</base-button
         >
         <base-button
           v-if="isPermission"
@@ -118,6 +128,10 @@ export default {
     getFeedback() {
       this.isAction = "DanhGia";
       this.$router.push("manage-feedback");
+    },
+    getContact() {
+      this.isAction = "LienHe";
+      this.$router.push("manage-contact");
     },
   },
 };
