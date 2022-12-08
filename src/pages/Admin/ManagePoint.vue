@@ -36,7 +36,27 @@
       </ol-style>
     </ol-vector-layer>
 
-        <!-- <ol-overlay :position="[105.74432520257396, 10.08826079632529]">
+    <ol-vector-layer v-if="!showUpdatePoint">
+      <ol-source-vector :projection="projection">
+        <ol-interaction-draw
+          v-if="drawEnable"
+          :type="drawType"
+          @drawend="drawstart"
+          @drawstart="draTest"
+        >
+        </ol-interaction-draw>
+      </ol-source-vector>
+
+      <ol-style>
+        <ol-style-stroke color="red" :width="2"></ol-style-stroke>
+        <ol-style-fill color="rgba(255,255,255,0.1)"></ol-style-fill>
+        <ol-style-circle :radius="7">
+          <ol-style-fill color="blue"></ol-style-fill>
+        </ol-style-circle>
+      </ol-style>
+    </ol-vector-layer>
+
+    <!-- <ol-overlay :position="[105.74432520257396, 10.08826079632529]">
         <template v-slot="slotProps">
             <div class="overlay-content">
                 Hello world!<br>
@@ -47,10 +67,27 @@
 
     <!-- Điểm trên bản đò -->
 
-    <ol-vector-layer>
+    <ol-vector-layer v-if="!allInfo">
       <ol-source-vector>
         <ol-feature>
           <ol-geom-multi-point :coordinates="listPoint"></ol-geom-multi-point>
+          <ol-style>
+            <ol-style-circle :radius="radius">
+              <ol-style-fill :color="fillColor"></ol-style-fill>
+              <ol-style-stroke
+                :color="strokeColor"
+                :width="strokeWidth"
+              ></ol-style-stroke>
+            </ol-style-circle>
+          </ol-style>
+        </ol-feature>
+      </ol-source-vector>
+    </ol-vector-layer>
+
+    <ol-vector-layer v-if="showPoint">
+      <ol-source-vector>
+        <ol-feature>
+          <ol-geom-multi-point :coordinates="[showPoint]"></ol-geom-multi-point>
           <ol-style>
             <ol-style-circle :radius="radius">
               <ol-style-fill :color="fillColor"></ol-style-fill>
@@ -75,7 +112,6 @@
               :color="strokeColorAddress"
               :width="5"
             ></ol-style-stroke>
-
           </ol-style>
         </ol-feature>
       </ol-source-vector>
@@ -204,7 +240,10 @@
       </div>
     </b-form>
   </div>
-  <div v-else class="col-md-8 offset-md-2 mg__top__25">
+  <div
+    v-else-if="allInfo && ShowUploadFile && showUpdatePoint"
+    class="col-md-8 offset-md-2 mg__top__25"
+  >
     <b-form @submit="updateInfo" class="main_form">
       <div class="row">
         <div class="col-md-12">
@@ -263,10 +302,69 @@
           <b-button variant="success" @click="updateInfo"
             >Cập nhật thông tin</b-button
           >
+          <b-button
+            style="margin-left: 25px"
+            @click="ShowUploadFile = false"
+            variant="primary"
+            >Chuyển Sang cập nhật hình ảnh</b-button
+          >
+          <b-button
+            style="margin-left: 25px"
+            @click="showUpdatePoint = false"
+            variant="primary"
+            >Chuyển Sang cập nhật điểm</b-button
+          >
         </div>
       </div>
     </b-form>
   </div>
+  <div v-else-if="!ShowUploadFile">
+    <div class="input-create mb-3">
+      <label>Hình ảnh địa điểm</label>
+      <input ref="fileUploaad" type="file" class="form-control" multiple />
+    </div>
+    <b-button @click="updateListImage" variant="success"
+      >Cập nhật hình</b-button
+    >
+    <b-button style="margin-left: 25px" @click="reset" variant="danger"
+      >Hủy</b-button
+    >
+  </div>
+  <div style="margin: 50px 0px" class="main_form" v-else-if="!showUpdatePoint">
+    <div>
+      <b-form-select
+        v-model="focusAddress"
+        :options="options"
+        @click="updateSpacePoint"
+      ></b-form-select>
+      <div class="mt-3">
+        Selected: <strong>{{ focusAddress }}</strong>
+      </div>
+    </div>
+    <div>
+      <div class="col-md-12">
+        <input
+          class="cont_in"
+          type="type"
+          :value="SpacePoint[1] ? 'Điểm giao : ' + SpacePoint[0] : 'Điểm giao '"
+          readonly
+        />
+      </div>
+      <b-button @click="sumX">Cộng X</b-button>
+      <b-button @click="subX" class="mg__left__25px">Trừ X</b-button>
+      <b-button @click="sumY" class="mg__left__25px">Cộng Y</b-button>
+      <b-button @click="subY" class="mg__left__25px">Trừ Y</b-button>
+    </div>
+    <div style="margin: 20px 0px">
+      <b-button variant="success" @click="updatePoint"
+        >Cập nhật địa điểm</b-button
+      >
+      <b-button style="margin-left: 25px" @click="reset" variant="danger"
+        >Hủy</b-button
+      >
+    </div>
+  </div>
+  {{ allInfo }}
 </template>
 
  
@@ -297,15 +395,27 @@ export default {
       options: [],
       focusAddress: [],
       SpacePoint: [],
-      allInfo: null,
+      allInfo: {},
+      ShowUploadFile: true,
+      showUpdatePoint: true,
     };
   },
   computed: {
     tes() {
       return this.focusAddress[0];
     },
+    showPoint() {
+      return this.allInfo ? this.allInfo.PointSpace : [];
+    },
+    showIdLocation() {
+      return this.allInfo ? this.allInfo.IdLocation : "";
+    },
   },
   methods: {
+    reset() {
+      this.ShowUploadFile = true;
+      this.showUpdatePoint = true;
+    },
     sumX() {
       this.SpacePoint[0][0] += 0.00005;
     },
@@ -416,7 +526,7 @@ export default {
         SK: this.allInfo.SK,
         PK: this.allInfo.PK,
       };
-      console.log(dataInfo)
+      console.log(dataInfo);
       await axios
         .put("/location/update-info-location", dataInfo, {
           headers: {
@@ -425,6 +535,51 @@ export default {
         })
         .then(function () {
           alert("Cập nhật Điểm thành công");
+        })
+        .catch(function (response) {
+          console.log(response.response);
+        });
+    },
+    async updateListImage() {
+      const formData = new FormData();
+      for (var i = 0; i < this.$refs.fileUploaad.files.length; i++) {
+        let file = this.$refs.fileUploaad.files[i];
+        formData.append("Path", file);
+      }
+      formData.append("IdLocation", this.showIdLocation);
+      await axios
+        .post("/location/update-image-location", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then(function () {
+          alert("Cập nhật địa điểm thành công");
+        })
+        .catch(function (response) {
+          console.log(response.response);
+        });
+    },
+    async updatePoint() {
+      const IdAddress = this.options.find(
+        (element) => element.value == this.focusAddress
+      ).IdSpace;
+
+      const dataInfo = {
+        OnIdAddress: IdAddress,
+        PointAddress: this.focusAddress,
+        PointSpace: this.SpacePoint[1],
+        PointCross: this.SpacePoint[0],
+        IdLocation: this.showIdLocation
+      };
+      await axios
+        .post("/location/update-point", dataInfo, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then(function () {
+          alert("Cập nhật địa điểm thành công");
         })
         .catch(function (response) {
           console.log(response.response);
@@ -536,7 +691,7 @@ export default {
 .mg__left__25px {
   margin-left: 25px;
 }
-.test{
-    color: red;
+.test {
+  color: red;
 }
 </style>
